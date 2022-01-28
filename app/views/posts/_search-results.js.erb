@@ -1,2 +1,9 @@
 $("#posts").hide();
+$.ajax({
+type:"GET",
+url:"/posts",
+dataType:"json",
+success:function(result){
 $("#search-results").html("<%= escape_javascript(render :partial => @posts) %>");
+}
+})

@@ -1,0 +1,10 @@
+setInterval(function() {
+$.ajax({
+type:"GET",
+url:"/posts",
+dataType:"json",
+success:function(result){
+$("#posts").html("<%= escape_javascript(render :partial => @posts) %>");
+}
+})
+}, 5000);

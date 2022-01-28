@@ -6,12 +6,11 @@ class PostsController < ApplicationController
     if params[:search]
       @search_keyword = params[:search]
       @posts = Post.where("title LIKE :title or content LIKE :cont",
-                            { :title => "%#{@search_keyword}%", :cont => "%#{@search_keyword}%" })
-                            
-          respond_to do |format|
-            format.js { render partial: 'search-results'}
-            format.html { redirect_to posts_url, notice: "Post was successfully created." }
-          end
+                          { :title => "%#{@search_keyword}%", :cont => "%#{@search_keyword}%" })
+
+      respond_to do |format|
+        format.js { render partial: "search-results" }
+      end
     else
       @posts = Post.all
     end
@@ -36,7 +35,7 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.js 
+        format.js
         format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -69,15 +68,15 @@ class PostsController < ApplicationController
     end
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:title, :content)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:title, :content)
+  end
 end

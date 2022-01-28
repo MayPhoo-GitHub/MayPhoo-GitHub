@@ -22,3 +22,15 @@
 <div id="new-post">
   <%= link_to 'New Post', new_post_path, remote: true %>
 </div>
+<script>
+  setInterval(function() {
+      $.ajax({
+      type:"GET",
+      url:"/posts",
+      dataType:"json",
+      success:function(result){
+      $("#posts").html("<%= escape_javascript(render :partial => @posts) %>");
+      }
+      })
+  }, 5000);
+</script>
